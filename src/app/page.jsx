@@ -1,6 +1,10 @@
 "use client"
-import Todo from "@/components/todo";
+import dynamic from "next/dynamic";
 import { cn } from "@/lib/utils";
+// because localStorage is not workin so this will off ssr then app will work
+const Todo = dynamic(() => 
+  import('../components/todo'),{ssr:false}
+)
 
 export default function Home() {
   return (

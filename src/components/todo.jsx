@@ -60,7 +60,7 @@ const deleteTask = (idx) => {
 
   return (
     <div className="flex justify-center w-full h-full">
-      <div className="w-[80%]">
+      <div className="w-[90%] md:w-[80%]">
         {myTask &&
           myTask.map((task, idx) => (
             <div
@@ -83,7 +83,7 @@ const deleteTask = (idx) => {
             </div>
           ))}
       </div>
-      <div className="fixed bottom-5 w-[80%] ">
+      <div className="fixed bottom-5 w-[90%] md:w-[80%] ">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(handleFormData)}>
             <FormField

@@ -25,36 +25,38 @@ const Todo = () => {
     },
   });
 
-  // Handle Form Data
-  const handleFormData = (data) => {
+  
 
-    let taskArr = JSON.parse(localStorage.getItem("Tasks"));
-    taskArr.push(data);
+// Handle Form Data
+const handleFormData = (data) => {
+  let taskArr = JSON.parse(localStorage.getItem("Tasks")) || []; // Fallback to []
 
-    localStorage.setItem("Tasks", JSON.stringify(taskArr));
-    toLoadFunc();
-    
-  };
+  taskArr.push(data);
+  localStorage.setItem("Tasks", JSON.stringify(taskArr));
 
-  // Get Data From Local Storage
-  useEffect(() => {
-    toLoadFunc();
-  }, []);
+  toLoadFunc();
+};
 
-  const toLoadFunc = () => {
-    setMyTask(JSON.parse(localStorage.getItem("Tasks")));
-  };
+// Get Data From Local Storage
+useEffect(() => {
+  toLoadFunc();
+}, []);
 
-  // Delete Task
-  const deleteTask = (idx) => {
+const toLoadFunc = () => {
+  const storedTasks = JSON.parse(localStorage.getItem("Tasks")) || []; // Fallback to []
+  setMyTask(storedTasks);
+};
 
-    let taskArr = JSON.parse(localStorage.getItem("Tasks"));
-    taskArr.splice(idx, 1);
+// Delete Task
+const deleteTask = (idx) => {
+  let taskArr = JSON.parse(localStorage.getItem("Tasks")) || [];
 
-    localStorage.setItem("Tasks", JSON.stringify(taskArr));
-    toLoadFunc();
+  taskArr.splice(idx, 1);
+  localStorage.setItem("Tasks", JSON.stringify(taskArr));
 
-  };
+  toLoadFunc();
+};
+
 
   return (
     <div className="flex justify-center w-full h-full">

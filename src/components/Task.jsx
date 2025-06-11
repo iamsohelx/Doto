@@ -1,47 +1,44 @@
-'use client'
-import React from 'react'
+"use client";
+import React from "react";
 import { Button } from "./ui/button";
 import { CloudCheck, Trash } from "lucide-react";
-import { useState } from 'react';
+import { useState } from "react";
 
+const Task = ({ task, idx, setMyTask }) => {
 
-const Task = ( {task, idx, setMyTask}) => {
-
+  const [index, setIndex] = useState(null)
   // Delete Task
-const deleteTask = (idx) => {
-  let taskArr = JSON.parse(localStorage.getItem("Tasks")) || [];
+  const deleteTask = (idx) => {
+    let taskArr = JSON.parse(localStorage.getItem("Tasks")) || [];
 
-  taskArr.splice(idx, 1);
-  localStorage.setItem("Tasks", JSON.stringify(taskArr));
+    taskArr.splice(idx, 1);
+    localStorage.setItem("Tasks", JSON.stringify(taskArr));
 
-  toLoadFunc();
-};
+    toLoadFunc();
+  };
 
-const toLoadFunc = () => {
-  const storedTasks = JSON.parse(localStorage.getItem("Tasks")) || []; // Fallback to []
-  setMyTask(storedTasks);
-};
+  const toLoadFunc = () => {
+    const storedTasks = JSON.parse(localStorage.getItem("Tasks")) || []; // Fallback to []
+    setMyTask(storedTasks);
+  };
 
   return (
     <div
-              key={idx}
-              className="bg-white shadow-sm w-full font-bold rounded-2xl p-5 my-3 flex items-center justify-between"
-            >
-              <div className="flex gap-5 items-center">
-                <Button size={"icon"}>
-                  <CloudCheck strokeWidth={3} />
-                </Button>
-                <p>{task.task}</p>
-              </div>
-              <Button
-                onClick={() => deleteTask(idx)}
-                size={"icon"}
-                variant={"outline"}
-              >
-                <Trash strokeWidth={3} />
-              </Button>
-            </div>
-  )
-}
+      className="bg-white shadow-sm w-full font-bold rounded-2xl p-5 my-3 flex items-center justify-between"
+    >
+      <div className="flex gap-5 items-center">
+        <Button onClick={()=>index!=null?setIndex(null):setIndex(idx)} size={"icon"}
+                className={`${idx == index?'text-green-400':''}`}  
+        >
+          <CloudCheck strokeWidth={3} />
+        </Button>
+        <p className={`${idx == index?'line-through text-gray-600':''}`}>{task.task}</p>
+      </div>
+      <Button onClick={() => deleteTask(idx)} size={"icon"} variant={"outline"}>
+        <Trash strokeWidth={3} />
+      </Button>
+    </div>
+  );
+};
 
-export default Task
+export default Task;

@@ -1,11 +1,16 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { Button } from "./ui/button";
 import { CloudCheck, Trash } from "lucide-react";
 import { useState } from "react";
 
 const Task = ({ task, idx, setMyTask, setCompletedTask, completedTask }) => {
   const [index, setIndex] = useState(null);
+
+  useEffect(()=>{
+      toLoadFunc();
+  },[])
+
   // Delete Task
   const deleteTask = (idx) => {
     let taskArr = JSON.parse(localStorage.getItem("Tasks")) || [];
@@ -36,7 +41,10 @@ const Task = ({ task, idx, setMyTask, setCompletedTask, completedTask }) => {
     } else {
       arrIdx.push(idx);
     }
+    arrIdx.sort()
     localStorage.setItem("Index", JSON.stringify(arrIdx));
+
+    toLoadFunc();
   };
 
   return (
@@ -45,11 +53,11 @@ const Task = ({ task, idx, setMyTask, setCompletedTask, completedTask }) => {
         <Button
           onClick={() => handleComplete(idx)}
           size={"icon"}
-          className={`${idx == index ? "text-green-400" : ""}`}
+          className={`${idx == completedTask.find(num=>num ==idx) ? "text-green-400" : ""}`}
         >
           <CloudCheck strokeWidth={3} />
         </Button>
-        <p className={`${idx == index ? "line-through text-gray-600" : ""}`}>
+        <p className={`${idx == completedTask.find(num=>num ==idx) ? "line-through text-gray-600" : ""}`}>
           {task.task}
         </p>
       </div>

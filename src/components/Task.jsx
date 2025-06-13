@@ -4,7 +4,7 @@ import { Button } from "./ui/button";
 import { CloudCheck, Trash } from "lucide-react";
 import { useState } from "react";
 
-const Task = ({ task, idx, setMyTask }) => {
+const Task = ({ task, idx, setMyTask, setCompletedTask, completedTask}) => {
 
   const [index, setIndex] = useState(null)
   // Delete Task
@@ -22,12 +22,24 @@ const Task = ({ task, idx, setMyTask }) => {
     setMyTask(storedTasks);
   };
 
+  // Function For Completed Task
+  const handleComplete = (idx)=> {
+    console.log(idx);
+    
+       let arrIdx = JSON.parse(localStorage.getItem('Index')) || [];
+      arrIdx.push(idx)
+      console.log(arrIdx);
+      
+       setCompletedTask(arrIdx);
+       localStorage.setItem('Index', JSON.stringify(completedTask));
+  }
+
   return (
     <div
       className="bg-white shadow-sm w-full font-bold rounded-2xl p-5 my-3 flex items-center justify-between"
     >
       <div className="flex gap-5 items-center">
-        <Button onClick={()=>index!=null?setIndex(null):setIndex(idx)} size={"icon"}
+        <Button onClick={()=>handleComplete(idx)} size={"icon"}
                 className={`${idx == index?'text-green-400':''}`}  
         >
           <CloudCheck strokeWidth={3} />

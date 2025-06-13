@@ -14,6 +14,8 @@ const ZodSchema = z.object({
 });
 
 const Todo = () => {
+  // Array to store index of completed tasks
+  const [completedTask, setCompletedTask] = useState([]);
   // Array For Tasks
   const [myTask, setMyTask] = useState([]);
   // Zod for handeling Form
@@ -57,7 +59,7 @@ const toLoadFunc = () => {
         {myTask &&
           myTask.map((task, idx) => (
             <div key={idx}>
-            <Task task={task} idx={idx} setMyTask={setMyTask}/>
+            <Task task={task} idx={idx} setMyTask={setMyTask} setCompletedTask={setCompletedTask} completedTask={completedTask}/>
             </div>
           ))}
       </div>

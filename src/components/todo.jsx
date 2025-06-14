@@ -31,6 +31,10 @@ const Todo = () => {
 // Handle Form Data
 const handleFormData = (data) => {
   let taskArr = JSON.parse(localStorage.getItem("Tasks")) || []; // Fallback to []
+  // let IndexArr = JSON.parse(localStorage.getItem("Index")) || [];
+
+  //  let idxDelete = IndexArr.indexOf(idx + 1);
+  // IndexArr.splice(idxDelete, 1);
 
   taskArr.push(data);
   localStorage.setItem("Tasks", JSON.stringify(taskArr));

@@ -16,9 +16,10 @@ const Task = ({ task, idx, setMyTask, setCompletedTask, completedTask }) => {
     let taskArr = JSON.parse(localStorage.getItem("Tasks")) || [];
     let IndexArr = JSON.parse(localStorage.getItem("Index")) || [];
 
-    IndexArr.splice(idx + 1,1)
+    let idxDelete = IndexArr.indexOf(idx + 1);
+    IndexArr.splice(idxDelete, 1);
     taskArr.splice(idx, 1);
-    IndexArr.push(idx - 1);
+    IndexArr.push(idx);
     localStorage.setItem("Index", JSON.stringify(IndexArr));
     localStorage.setItem("Tasks", JSON.stringify(taskArr));
 
